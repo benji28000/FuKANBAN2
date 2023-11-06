@@ -78,4 +78,6 @@ class StatutController extends AbstractController
 
         return $this->redirectToRoute('app_statut_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

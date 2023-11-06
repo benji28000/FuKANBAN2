@@ -29,21 +29,20 @@ class UtilisateursVoter extends Voter
             return false;
         }
 
+
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-                foreach ($subject->getUser() as $userr){
-                    if ($userr === $user){
-                        return true;
-                    }
-                }
+                // logic to determine if the user can EDIT
+                return true;
+
                 
                 break;
             case self::VIEW:
                 return true;
                 break;
             case self::DELETE:
-                return $subject->getUser() === $user;
+                return true;
                 break;
 
         }

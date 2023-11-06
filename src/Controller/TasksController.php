@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Tasks;
 use App\Form\TasksType;
+use App\Form\TasksTypeStatut;
 use App\Repository\TasksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Statut;
 
 #[Route('/tasks')]
 class TasksController extends AbstractController
@@ -30,10 +32,39 @@ class TasksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->addUser($this->getUser());
             $entityManager->persist($task);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tasks/new.html.twig', [
+            'task' => $task,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/new/{statut}', name: 'app_tasks_new_statut', methods: ['GET', 'POST'])]
+    public function newStatut(Request $request, EntityManagerInterface $entityManager, $statut): Response
+    {
+        $task = new Tasks();
+        $form = $this->createForm(TasksTypeStatut::class, $task);
+        $form->handleRequest($request);
+
+        // Récupérer le statut à partir de l'ID fourni
+        $statutEntity = $entityManager->getRepository(Statut::class)->find($statut);
+
+
+
+        $task->setStatut($statutEntity);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task->addUser($this->getUser());
+            $entityManager->persist($task);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tasks/new.html.twig', [
@@ -68,14 +99,16 @@ class TasksController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tasks_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_tasks_delete', methods: ['POST', 'GET'])]
     public function delete(Request $request, Tasks $task, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+
             $entityManager->remove($task);
             $entityManager->flush();
-        }
+
 
         return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

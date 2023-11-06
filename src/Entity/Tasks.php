@@ -122,7 +122,7 @@ class Tasks
     /**
      * @return Collection<int, Utilisateurs>
      */
-    public function getUser(): Collection
+    public function getUtilisateur(): Collection
     {
         return $this->user;
     }

@@ -7,6 +7,29 @@
 
 {% block javascripts %}
 <script src="https://kit.fontawesome.com/d31ad0e262.js" crossorigin="anonymous"></script>
+    <script>
+
+        const statusColors = {
+            "backlog": "#FFD700",
+            "running": "red",
+            "evaluating": "blue",
+            "in-progress": "orange",
+            "live": "green",
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const columns = document.querySelectorAll(".column__item");
+
+            columns.forEach(column => {
+                const statusLabel = column.classList[1]; // La deuxième classe représente le libellé du statut
+                const color = statusColors[statusLabel];
+                if (color) {
+                    column.style.backgroundColor = color;
+                }
+            });
+        });
+
+    </script>
 {% endblock %}
 
 
@@ -42,10 +65,10 @@
 
     {% for statut in statuts %}
         <div id="container_add">
-            <div class="column__item">
+            <div class="column__item {{ statut.getLibelle() }}">
                 <div class="column__title--wrapper">
 
-                    <h2>{{ statut.getLibelle() }}</h2>
+                    <h2 id="title_statut">{{ statut.getLibelle() }}</h2>
                     <i class="fas fa-ellipsis-h"></i>
                 </div>
                 <ul class="card__list">
@@ -55,7 +78,7 @@
                     <div class="card__item">
 
                         <span class="card__tag card__tag--browser">{{ task.getTitle() }}</span>
-                        {% for users in task.getUser() %}
+                        {% for users in task.getUtilisateur() %}
                         <span class="card__tag card__tag--browser">{{ users.getName() }}</span>
                         {% endfor %}
                         <span class="card__tag card__tag--browser">{{ task.getProject().getName() }}</span>
@@ -63,21 +86,20 @@
 
                         <h6 class="card__title">{{ task.getDescription() }}</h6>
                         <div id="actions_tasks">
-                            {% if is_granted("DELETE",task) %}
-                            <form method="post" action="{{ path('app_tasks_delete', {'id': task.getId()}) }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.getId()) }}">
-                                <button type="submit" ><i class="fa-solid fa-trash"></i></button>
-                            </form>
+
+
+                            {% if is_granted("TASK_DELETE",task) %}
+                                <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main"><i class="fa-solid fa-trash"></i></a>
+
                                 {% endif %}
 
-                            {% if is_granted("EDIT",task) %}
+                            {% if is_granted("TASK_EDIT",task) %}
 
-                            <form method="post" action="{{ path('app_tasks_edit', {'id': task.getId()}) }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.getId()) }}">
-                                <button type="submit" ><i class="fa-solid fa-pen-to-square"></i></button>
-                            </form>
+                                <a href="/tasks/{{ task.getId() }}/edit"  class="btn btn-main"><i class="fa-solid fa-pen-to-square"></i></a>
                             {% endif %}
                         </div>
+
+
 
 
 
@@ -89,8 +111,7 @@
 
             </div>
         <div class="column__item--cta">
-            <i class="fas fa-plus"></i>
-            <h4>Add another card</h4>
+            <a href="{{ path("app_tasks_new_statut",{'statut': statut.getId()}) }}"><i class="fa-solid fa-plus"></i></a>
         </div>
         </div>
     {% endfor %}

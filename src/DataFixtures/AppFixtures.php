@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
         $manager->persist($statutEvalutating);
 
         $statutinprogress = new Statut();
-        $statutinprogress->setLibelle('in progress');
+        $statutinprogress->setLibelle('in-progress');
         $statuts[] = $statutinprogress;
         $manager->persist($statutinprogress);
 
@@ -54,7 +54,7 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             $user = new Utilisateurs();
             $user->setName('user' . $i);
             $user->setMail('user' . $i . '@gmail.com');
@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
             $utilisateurs[] = $user;
             $manager->persist($user);
         }
-        for ($j = 0; $j < 20; $j++) {
+        for ($j = 0; $j < 4; $j++) {
             $project = new Projets();
             $project->setName('project' . $j);
             $project->setDescription('description' . $j);
@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         }
 
 
-        for ($k = 0; $k < 300; $k++) {
+        for ($k = 0; $k < 100; $k++) {
             $task = new Tasks();
             $task->setTitle('task' . $k);
             $task->setDescription('description' . $k);

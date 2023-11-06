@@ -8,20 +8,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class TasksVoter extends Voter
 {
-    public const EDIT = 'POST_EDIT';
-    public const VIEW = 'POST_VIEW';
+    public const EDIT = 'TASK_EDIT';
+    public const VIEW = 'TASK_VIEW';
+
+    public const DELETE = 'TASK_DELETE';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
             && $subject instanceof \App\Entity\Tasks;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
+
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
@@ -30,12 +33,22 @@ class TasksVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-                // logic to determine if the user can EDIT
-                // return true or false
+                foreach ($subject->getUtilisateur() as $userr) {
+                    if ($userr === $user) {
+                        return true; // Retourne true si l'utilisateur est trouvé
+                    }
+                }
                 break;
+
             case self::VIEW:
-                // logic to determine if the user can VIEW
-                // return true or false
+                return true;
+
+            case self::DELETE:
+                foreach ($subject->getUtilisateur() as $userr) {
+                    if ($userr === $user) {
+                        return true;
+                    }
+                }
                 break;
         }
 

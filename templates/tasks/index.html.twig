@@ -26,7 +26,12 @@
                 <td>{{ task.dateModification ? task.dateModification|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_tasks_show', {'id': task.id}) }}">show</a>
+                    {% if is_granted("TASK_EDIT",task) %}
                     <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted("TASK_DELETE",task) %}
+                        <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

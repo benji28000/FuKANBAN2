@@ -8,7 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TasksType extends AbstractType
+class TasksTypeStatut extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,7 +17,6 @@ class TasksType extends AbstractType
             ->add('description')
             ->add('date_creation')
             ->add('date_modification')
-            ->add('statut')
             ->add('project')
 
         ;
