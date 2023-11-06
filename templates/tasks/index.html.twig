@@ -30,7 +30,7 @@
                     <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
                     {% endif %}
                     {% if is_granted("TASK_DELETE",task) %}
-                        <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main">delete</a>
+                        <a href="/tasks/{{ task.getId() }}/delete"  >delete</a>
                     {% endif %}
                 </td>
             </tr>
@@ -42,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tasks_new') }}">Create new</a>
+    <a class="link_admin" href="{{ path('app_tasks_new') }}">Create new</a>
 {% endblock %}

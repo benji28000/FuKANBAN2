@@ -33,8 +33,7 @@ class UtilisateursVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-                // logic to determine if the user can EDIT
-                return true;
+                return $user->getroles()[0] === 'ROLE_ADMIN';
 
                 
                 break;
@@ -42,7 +41,7 @@ class UtilisateursVoter extends Voter
                 return true;
                 break;
             case self::DELETE:
-                return true;
+                return $user->getroles()[0] === 'ROLE_ADMIN';
                 break;
 
         }

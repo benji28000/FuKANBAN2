@@ -70,13 +70,13 @@ class UtilisateursController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateurs_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_utilisateurs_delete', methods: ['POST' , 'GET'])]
     public function delete(Request $request, Utilisateurs $utilisateur, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
+
             $entityManager->remove($utilisateur);
             $entityManager->flush();
-        }
+
 
         return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
     }

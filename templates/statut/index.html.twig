@@ -20,7 +20,12 @@
                 <td>{{ statut.libelle }}</td>
                 <td>
                     <a href="{{ path('app_statut_show', {'id': statut.id}) }}">show</a>
+                    {% if is_granted("EDIT",statut) %}
                     <a href="{{ path('app_statut_edit', {'id': statut.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted("DELETE",statut) %}
+                    <a href="/statut/{{ statut.getId() }}/delete">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -31,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_statut_new') }}">Create new</a>
+    <a class="link_admin" href="{{ path('app_statut_new') }}">Create new</a>
 {% endblock %}

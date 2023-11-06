@@ -26,7 +26,12 @@
                 <td>{{ projet.dateModification ? projet.dateModification|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_projets_show', {'id': projet.id}) }}">show</a>
+                    {% if is_granted("EDIT",projet) %}
                     <a href="{{ path('app_projets_edit', {'id': projet.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted("DELETE",projet) %}
+                    <a href="/projets/{{ projet.getId() }}/delete">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_projets_new') }}">Create new</a>
+    <a class="link_admin" href="{{ path('app_projets_new') }}">Create new</a>
 {% endblock %}

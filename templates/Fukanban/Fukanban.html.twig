@@ -1,9 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-{% endblock %}
 
 {% block javascripts %}
 <script src="https://kit.fontawesome.com/d31ad0e262.js" crossorigin="anonymous"></script>
@@ -20,11 +16,24 @@
         document.addEventListener("DOMContentLoaded", function () {
             const columns = document.querySelectorAll(".column__item");
 
+
             columns.forEach(column => {
-                const statusLabel = column.classList[1]; // La deuxième classe représente le libellé du statut
+                const statusLabel = column.classList[1];
                 const color = statusColors[statusLabel];
                 if (color) {
                     column.style.backgroundColor = color;
+
+                }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const cardTags = document.querySelectorAll(".card__tag");
+
+            cardTags.forEach(tag => {
+                const statusLabel = tag.classList[1];
+                const color = statusColors[statusLabel];
+                if (color) {
+                    tag.style.backgroundColor = color;
                 }
             });
         });
@@ -35,20 +44,9 @@
 
 {% block body %}
 
-    <label id="labelproject" > projet :</label>
-    <select name="projects" id="projects">
-        <option value="default">{%  if (idprojet) %} {{ idprojet }} {% else %}Sélectionnez un projet {% endif %}</option>
-        {% for projet in projets %}
-        <option value="{{ projet.getId() }}">{{ projet.getName()}}</option>
-        {% endfor %}
-    </select>
 
-    <script>
-        document.getElementById('projects').addEventListener('change', function() {
-            var id = this.value;
-            window.location.href = '/home/'+id;
-        });
-    </script>
+
+
 
 
 
@@ -59,6 +57,20 @@
 
 
     <section class="wrapper">
+        <label id="labelproject" > projet :</label>
+        <select name="projects" id="projects">
+            <option value="default">{%  if (idprojet) %} {{ idprojet }} {% else %}Sélectionnez un projet {% endif %}</option>
+            {% for projet in projets %}
+                <option value="{{ projet.getId() }}">{{ projet.getName()}}</option>
+            {% endfor %}
+        </select>
+
+        <script>
+            document.getElementById('projects').addEventListener('change', function() {
+                var id = this.value;
+                window.location.href = '/home/'+id;
+            });
+        </script>
 
 
         <ul class="column__list">
@@ -67,9 +79,8 @@
         <div id="container_add">
             <div class="column__item {{ statut.getLibelle() }}">
                 <div class="column__title--wrapper">
-
-                    <h2 id="title_statut">{{ statut.getLibelle() }}</h2>
-                    <i class="fas fa-ellipsis-h"></i>
+                    <h2 class="statut">{{ statut.getLibelle() }}</h2>
+                    <span class="statut">{{ numberOfTasksInStatut[statut.getId()] }}</span>
                 </div>
                 <ul class="card__list">
 
@@ -77,21 +88,27 @@
                         {% if task.getStatut().getLibelle() == statut.getLibelle()  %}
                     <div class="card__item">
 
-                        <span class="card__tag card__tag--browser">{{ task.getTitle() }}</span>
-                        {% for users in task.getUtilisateur() %}
-                        <span class="card__tag card__tag--browser">{{ users.getName() }}</span>
-                        {% endfor %}
-                        <span class="card__tag card__tag--browser">{{ task.getProject().getName() }}</span>
+                        <h5 class="card__title">{{ task.getTitle() }}</h5>
+
+                        <div class="etiquettes">
+                            {% for users in task.getUtilisateur() %}
+                                <span class="card__tag {{ statut.getLibelle() }}">{{ users.getName() }}</span>
+                            {% endfor %}
+                            <span class="card__tag {{ statut.getLibelle() }}">{{ task.getProject().getName() }}</span>
+                            {% if is_granted("TASK_DELETE",task) %}
+                                <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main"><i class="fa-solid fa-xmark"></i></a>
+                            {% endif %}
 
 
-                        <h6 class="card__title">{{ task.getDescription() }}</h6>
+                        </div>
+
+
+                        <span class="card__content">{{ task.getDescription() }}</span>
+
                         <div id="actions_tasks">
 
 
-                            {% if is_granted("TASK_DELETE",task) %}
-                                <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main"><i class="fa-solid fa-trash"></i></a>
 
-                                {% endif %}
 
                             {% if is_granted("TASK_EDIT",task) %}
 

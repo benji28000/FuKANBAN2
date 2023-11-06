@@ -15,19 +15,24 @@ class FukanbanController extends AbstractController
 {
 
 
-    #[Route('/' , name: 'fukanban' , methods: ['GET'])]
-    public function mainpage(  TasksRepository $tasksRepository, StatutRepository $statutRepository, ProjetsRepository $projetsRepository, UtilisateursRepository $utilisateursRepository )
+    #[Route('/', name: 'fukanban', methods: ['GET'])]
+    public function mainpage(TasksRepository $tasksRepository, StatutRepository $statutRepository, ProjetsRepository $projetsRepository, UtilisateursRepository $utilisateursRepository)
     {
+        $statuts = $statutRepository->findAll();
+        $numberOfTasksInStatut = [];
 
-            return $this->render('Fukanban/Fukanban.html.twig', [
-                "tasks" => $tasksRepository->findAll(),
-                "statuts" => $statutRepository->findAll(),
-                "projets" => $projetsRepository->findAll(),
-                "utilisateurs" => $utilisateursRepository->findAll(),
-                "idprojet" => null,
+        foreach ($statuts as $statut) {
+            $numberOfTasksInStatut[$statut->getId()] = count($tasksRepository->findBy(['statut' => $statut]));
+        }
 
-            ]);
-
+        return $this->render('Fukanban/Fukanban.html.twig', [
+            "tasks" => $tasksRepository->findAll(),
+            "statuts" => $statuts,
+            "projets" => $projetsRepository->findAll(),
+            "utilisateurs" => $utilisateursRepository->findAll(),
+            "idprojet" => null,
+            "numberOfTasksInStatut" => $numberOfTasksInStatut,
+        ]);
     }
 
 
@@ -36,12 +41,20 @@ class FukanbanController extends AbstractController
     public function projet(?int $idprojet,   TasksRepository $tasksRepository, StatutRepository $statutRepository, ProjetsRepository $projetsRepository, UtilisateursRepository $utilisateursRepository )
     {
 
+        $statuts = $statutRepository->findAll();
+        $numberOfTasksInStatut = [];
+
+        foreach ($statuts as $statut) {
+            $numberOfTasksInStatut[$statut->getId()] = count($tasksRepository->findBy(['statut' => $statut, 'project' => $idprojet]));
+        }
+
         return $this->render('Fukanban/Fukanban.html.twig', [
             "tasks" => $tasksRepository->findBy(["project" => $idprojet]),
             "statuts" => $statutRepository->findAll(),
             "projets" => $projetsRepository->findAll(),
             "utilisateurs" => $utilisateursRepository->findAll(),
             "idprojet" => $idprojet,
+            "numberOfTasksInStatut" => $numberOfTasksInStatut,
 
         ]);
 

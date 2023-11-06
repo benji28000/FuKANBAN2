@@ -68,13 +68,13 @@ class StatutController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_statut_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_statut_delete', methods: ['POST' , 'GET'])]
     public function delete(Request $request, Statut $statut, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$statut->getId(), $request->request->get('_token'))) {
+
             $entityManager->remove($statut);
             $entityManager->flush();
-        }
+
 
         return $this->redirectToRoute('app_statut_index', [], Response::HTTP_SEE_OTHER);
     }

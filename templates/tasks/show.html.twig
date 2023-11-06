@@ -30,9 +30,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tasks_index') }}">back to list</a>
+    <a class="link_admin" href="{{ path('app_tasks_index') }}">back to list</a>
     {% if is_granted("TASK_EDIT",task) %}
-    <a href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
+    <a class="link_admin" href="{{ path('app_tasks_edit', {'id': task.id}) }}">edit</a>
     {% endif %}
     {% if is_granted("TASK_DELETE",task) %}
 

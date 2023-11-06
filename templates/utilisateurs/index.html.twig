@@ -23,10 +23,17 @@
                 <td>{{ utilisateur.name }}</td>
                 <td>{{ utilisateur.mail }}</td>
                 <td>{{ utilisateur.password }}</td>
-                <td>{{ utilisateur.role }}</td>
+                <td>{{ utilisateur.getRoles()[0] }}</td>
                 <td>
                     <a href="{{ path('app_utilisateurs_show', {'id': utilisateur.id}) }}">show</a>
+                    {% if is_granted("EDIT",utilisateur) %}
                     <a href="{{ path('app_utilisateurs_edit', {'id': utilisateur.id}) }}">edit</a>
+                    {% endif %}
+                    {% if is_granted("DELETE",utilisateur) %}
+
+                        <a href="/utilisateurs/{{ utilisateur.getId() }}/delete"  >delete</a>
+                    {% endif %}
+
                 </td>
             </tr>
         {% else %}
@@ -37,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_utilisateurs_new') }}">Create new</a>
+    <a class="link_admin" href="{{ path('app_utilisateurs_new') }}">Create new</a>
 {% endblock %}

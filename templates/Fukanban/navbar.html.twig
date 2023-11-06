@@ -4,19 +4,24 @@
 
     <div class="container-fluid">
         <i class="fa-regular fa-calendar" id="logo_nav"></i>
-        <a class="navbar-brand" href="#">FuKANBAN</a>
+        <a class="navbar-brand" href="{{ path("fukanban") }}">FuKANBAN</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="{{ path("fukanban") }}">Home</a></li>
-                <a class="nav-link" href="{{ path("app_login") }}">Login</a></li>
+
                 <a class="nav-link" href="{{ path("app_projets_index") }}">projects</a>
                 <a class="nav-link" href="{{ path("app_statut_index") }}">Statuts</a>
                 <a class="nav-link" href="{{ path("app_tasks_index") }}">Tasks</a>
                 <a class="nav-link" href="{{ path("app_utilisateurs_index") }}">Users</a>
-                <a class="nav-link" href="{{ path("app_logout") }}">Logout</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="nav-link" href="{{ path("app_logout") }}">Logout</a>
+
+                {% else %}
+                    <a class="nav-link" href="{{ path("app_login") }}">Login</a></li>
+                {% endif %}
             </div>
         </div>
     </div>

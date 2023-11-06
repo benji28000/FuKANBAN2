@@ -1,9 +1,16 @@
-/* Styles généraux */
+
 body {
     font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
     background-image: linear-gradient(to right, #8360c3, #2ebf91);
 
     color: white;
+
+}
+.link_admin{
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+
 
 }
 #navbar_id{
@@ -13,8 +20,8 @@ body {
 #logo_nav{
     margin-right: 15px;
 }
-#title_statut{
-    color: white;
+.statut{
+    color: white !important;
 }
 
 #labelproject {
@@ -25,15 +32,14 @@ body {
     padding: 1rem;
 }
 
-/* Scrollbar personnalisée */
-/* ... Votre style pour la barre de défilement ... */
 
-/* Styles des colonnes */
 .column__list {
     display: grid;
+
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    grid-gap: 0.5rem;
-    align-items: start;
+    grid-gap: 100px;
+
+
 }
 
 .column__item {
@@ -41,7 +47,8 @@ body {
 
     padding: 0.5rem;
     height: 700px;
-    margin-right: 20px;
+       width: 300px;
+
 
 }
 
@@ -63,7 +70,7 @@ body {
     color: #798d99;
     cursor: pointer;
 }
-/* Styles pour le logo au bas des colonnes */
+
 .column__item--cta {
     padding: 0.25rem;
     display: flex;
@@ -90,45 +97,60 @@ body {
     background-color: #2ebf91}
 
 
-/* Styles pour la scrollbar dans .card__list */
+
 .card__list {
     display: grid;
     grid-template-rows: auto;
     grid-gap: 0.5rem;
     margin: 0.5rem 0;
     padding: 0;
-    overflow-y: scroll; /* Activation de la barre de défilement verticale */
-    height: 500px; /* Réglez la hauteur souhaitée */
+    overflow-y: scroll;
+    height: 630px;
 
-    /* Styles de la scrollbar WebKit */
-    scrollbar-width: thin; /* Optionnel - pour forcer la scrollbar WebKit sur Firefox */
-    scrollbar-color: #ccc #f0f0f0; /* Optionnel - pour définir la couleur de la scrollbar */
+
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f0f0f0;
 }
 
-/* Styles pour le thumb (barre de défilement) */
+
 .card__list::-webkit-scrollbar {
-    width: 5px; /* Largeur de la scrollbar */
-    border-radius: 5px; /* Arrondi des coins */
+    width: 5px;
+    border-radius: 5px;
 }
 
 .card__list::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* Couleur de la thumb (barre de défilement) */
-    border-radius: 5px; /* Arrondi des coins de la thumb */
+    background-color: #ccc;
+    border-radius: 5px;
 }
 
 .card__list::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; /* Couleur de la thumb au survol */
+    background-color: #aaa;
 }
 
 .card__list::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* Couleur du track (fond de la scrollbar) */
-    border-radius: 5px; /* Arrondi des coins du track */
+    background-color: #f0f0f0;
+    border-radius: 5px;
 }
 .card__item {
     background-color: white;
     border-radius: 0.25rem;
     box-shadow: 0 1px 0 rgba(9, 45, 66, 0.25);
     padding: 0.5rem;
+    position: relative;
+}
+
+.card__item:hover {
+    background-color: #2ebf91;
+    border-radius: 10px;
+    transition: 0.5s;
+
+}
+.card__item i.fa-xmark {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    color: red;
+    cursor: pointer;
 }
 
 .card__tag {
@@ -166,7 +188,6 @@ body {
     margin-bottom: 0.75rem;
 }
 
-/* Actions des cartes */
 .card__actions {
     display: flex;
     align-items: center;
@@ -205,7 +226,7 @@ body {
     object-fit: cover;
 }
 
-/* Style de la liste déroulante */
+
 .dropdown {
     padding: 10px;
     border: 1px solid #ccc;
@@ -213,18 +234,18 @@ body {
     width: 200px;
 }
 
-/* Style des options de la liste déroulante */
+
 .dropdown option {
     padding: 10px;
 }
 
-/* Style du label */
+
 label {
     display: block;
     margin-bottom: 10px;
 }
 
-/* Actions des tâches */
+
 #actions_tasks {
     display: flex;
     flex-direction: row;
@@ -244,25 +265,51 @@ label {
 }
 
 .yellow-bg {
-    background-color: yellow;
+    background-color: yellow !important;
 }
 
 .red-bg {
-    background-color: red;
+    background-color: red !important;
 }
 
 .blue-bg {
-    background-color: blue;
+    background-color: blue !important;
 }
 
 .orange-bg {
-    background-color: orange;
+    background-color: orange !important;
 }
 
 .green-bg {
-    background-color: green;
+    background-color: green     !important;
 }
 
 .default-bg {
     background-color: #dfe3e6; /* Couleur par défaut */
+}
+
+#labelproject {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#projects {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 16px;
+    background-color: white;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+#projects option {
+    font-size: 16px;
+}
+
+#projects option[value="default"] {
+    font-style: italic;
+    color: #999;
 }
