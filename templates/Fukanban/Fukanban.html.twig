@@ -63,15 +63,20 @@
 
                         <h6 class="card__title">{{ task.getDescription() }}</h6>
                         <div id="actions_tasks">
+                            {% if is_granted("DELETE",task) %}
                             <form method="post" action="{{ path('app_tasks_delete', {'id': task.getId()}) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.getId()) }}">
                                 <button type="submit" ><i class="fa-solid fa-trash"></i></button>
                             </form>
+                                {% endif %}
+
+                            {% if is_granted("EDIT",task) %}
 
                             <form method="post" action="{{ path('app_tasks_edit', {'id': task.getId()}) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.getId()) }}">
                                 <button type="submit" ><i class="fa-solid fa-pen-to-square"></i></button>
                             </form>
+                            {% endif %}
                         </div>
 
 
