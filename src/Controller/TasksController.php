@@ -59,7 +59,7 @@ class TasksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tasks/edit.html.twig', [
@@ -76,6 +76,6 @@ class TasksController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
     }
 }

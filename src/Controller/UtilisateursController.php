@@ -30,6 +30,8 @@ class UtilisateursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur->setRoles(['ROLE_USER']);
+            $utilisateur->setPassword($this->passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword()));
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
