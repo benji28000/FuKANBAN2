@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\PEREZ\Documents\GitHub\FuKANBAN\FuKANBAN\var\data.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="identifier.sqlite" uuid="ab41d2a0-ca65-4afa-83bf-2bff140d03a0">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
