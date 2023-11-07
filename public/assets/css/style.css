@@ -148,6 +148,7 @@ body {
     border-radius: 0.25rem;
     box-shadow: 0 1px 0 rgba(9, 45, 66, 0.25);
     padding: 0.5rem;
+    transition: transform 0.3s;
 }
 
 .card__item:hover {

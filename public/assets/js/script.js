@@ -111,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+
 function updateTaskStatus(taskId, newStatus) {
     fetch(`http://localhost:8000/tasks/update-task-status/${taskId}/${newStatus}`)
 }
