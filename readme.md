@@ -48,3 +48,5 @@ Suivez ces étapes pour configurer et exécuter l'application :
    ```bash
    symfony open:local
    ```
+   
+autre. Le drag&drop n'effectue en faisant un fetch vers le localhost au port 8000
