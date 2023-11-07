@@ -30,6 +30,9 @@ class ProjetsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now_date = new \DateTime();
+            $projet->setDateCreation($now_date);
+            $projet->setDateModification($now_date);
             $entityManager->persist($projet);
             $entityManager->flush();
 
@@ -57,6 +60,9 @@ class ProjetsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now_date = new \DateTime();
+            $projet->setDateModification($now_date);
+            $entityManager->persist($projet);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_projets_index', [], Response::HTTP_SEE_OTHER);

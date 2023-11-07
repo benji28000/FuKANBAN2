@@ -14,8 +14,6 @@ class ProjetsType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('date_creation')
-            ->add('date_modification')
             ->add('Utilisateurs')
         ;
     }

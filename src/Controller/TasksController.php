@@ -101,6 +101,7 @@ class TasksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $now_date = new \DateTime();
             $task->setDateModification($now_date);
+            $entityManager->persist($task);
             $entityManager->flush();
 
             return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
