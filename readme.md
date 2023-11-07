@@ -20,9 +20,9 @@ Suivez ces étapes pour configurer et exécuter l'application :
    ```
 2. Installez les dépendances :
 
-  ```bash
-   composer install
-  ```
+     ```bash
+    composer install
+     ```
 
 3. Créez la base de données :
 
@@ -31,20 +31,20 @@ Suivez ces étapes pour configurer et exécuter l'application :
    ```
 
    ```bash
-     symfony console doctrine:migrations:migrate
+   symfony console doctrine:migrations:migrate
    ```
     
 4. Chargez les données de test :
    ```bash
-     symfony console doctrine:fixtures:load
+   symfony console doctrine:fixtures:load
    ```
     
 5. Démarrez le serveur :
    ```bash
-     symfony server:start
+   symfony server:start
    ```
     
 6. Ouvrez l'application dans votre navigateur :
    ```bash
-     symfony open:local
+   symfony open:local
    ```
