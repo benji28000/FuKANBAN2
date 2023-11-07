@@ -123,8 +123,9 @@ body {
     scrollbar-width: thin;
     scrollbar-color: #ccc #f0f0f0;
 }
-
-
+.card__content {
+    word-wrap: break-word;
+}
 .card__list::-webkit-scrollbar {
     width: 5px;
     border-radius: 5px;
