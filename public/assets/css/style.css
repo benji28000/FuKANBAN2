@@ -110,19 +110,17 @@ body {
 
 .card__list {
     display: flex;
-    flex-basis: fit-content;
     flex-direction: column;
-    grid-template-rows: auto;
     grid-gap: 0.5rem;
     margin: 0.5rem 0;
     padding: 0;
     overflow-y: auto;
     height: 630px;
-
-
     scrollbar-width: thin;
     scrollbar-color: #ccc #f0f0f0;
+    align-items: stretch; /* Cela étire les éléments en hauteur pour qu'ils aient la même taille */
 }
+
 .card__content {
     word-wrap: break-word;
 }
@@ -150,7 +148,6 @@ body {
     border-radius: 0.25rem;
     box-shadow: 0 1px 0 rgba(9, 45, 66, 0.25);
     padding: 0.5rem;
-    height: fit-content;
 }
 
 .card__item:hover {
