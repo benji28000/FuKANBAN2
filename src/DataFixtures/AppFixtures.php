@@ -9,10 +9,12 @@ use App\Entity\Projets;
 use App\Entity\Statut;
 use App\Entity\Tasks;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Cocur\Slugify\Slugify;
 
 
 class AppFixtures extends Fixture
 {
+
 
     private UserPasswordHasherInterface $hasher;
 
@@ -22,33 +24,36 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
+        $slugify = new Slugify();
+
+
         $statuts = [];
         $utilisateurs = [];
         $projets = [];
         $tasks = [];
 
         $statutbacklog = new Statut();
-        $statutbacklog->setLibelle('backlog');
+        $statutbacklog->setLibelle($slugify->slugify('backlog', '-'));
         $statuts[] = $statutbacklog;
         $manager->persist($statutbacklog);
 
         $statutrunning = new Statut();
-        $statutrunning->setLibelle('running');
+        $statutrunning->setLibelle($slugify->slugify('running', '-'));
         $statuts[] = $statutrunning;
         $manager->persist($statutrunning);
 
         $statutEvalutating = new Statut();
-        $statutEvalutating->setLibelle('evaluating');
+        $statutEvalutating->setLibelle($slugify->slugify('evaluating', '-'));
         $statuts[] = $statutEvalutating;
         $manager->persist($statutEvalutating);
 
         $statutinprogress = new Statut();
-        $statutinprogress->setLibelle('in-progress');
+        $statutinprogress->setLibelle($slugify->slugify('in progress', '-'));
         $statuts[] = $statutinprogress;
         $manager->persist($statutinprogress);
 
         $statutlive = new Statut();
-        $statutlive->setLibelle('live');
+        $statutlive->setLibelle($slugify->slugify('live', '-'));
         $statuts[] = $statutlive;
         $manager->persist($statutlive);
 

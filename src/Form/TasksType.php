@@ -15,8 +15,6 @@ class TasksType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('date_creation')
-            ->add('date_modification')
             ->add('statut')
             ->add('project')
 

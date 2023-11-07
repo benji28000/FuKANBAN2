@@ -34,7 +34,7 @@ class TasksVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
                 foreach ($subject->getUtilisateur() as $userr) {
-                    if ($userr === $user) {
+                    if ($userr === $user || $user->getroles()[0] === 'ROLE_ADMIN') {
                         return true; // Retourne true si l'utilisateur est trouvé
                     }
                 }
@@ -45,7 +45,7 @@ class TasksVoter extends Voter
 
             case self::DELETE:
                 foreach ($subject->getUtilisateur() as $userr) {
-                    if ($userr === $user) {
+                    if ($userr === $user || $user->getroles()[0] === 'ROLE_ADMIN') {
                         return true;
                     }
                 }

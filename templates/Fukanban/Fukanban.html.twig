@@ -96,9 +96,11 @@
                 </ul>
 
             </div>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="column__item--cta">
             <a href="{{ path("app_tasks_new_statut",{'statut': statut.getId()}) }}"><i class="fa-solid fa-plus"></i></a>
         </div>
+            {% endif %}
         </div>
     {% endfor %}
 

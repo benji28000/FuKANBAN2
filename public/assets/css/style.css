@@ -14,13 +14,22 @@ body {
 
 }
 #navbar_id{
-    background-color: lightskyblue !important;
+    background-color: rgba(0,0,0,0) !important;
+    color: #fff;
+    border-bottom: #fff solid 2px;
+
+}
+
+.navbar-nav a , .navbar-brand {
+    color: #fff !important;
 
 }
 #logo_nav{
+    color: #fff;
+
     margin-right: 15px;
 }
-.numberperstatut{
+.numberperstatut , .statut{
     color: white !important;
 }
 
@@ -78,6 +87,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s;
+    width: 300px;
 }
 
 .column__item--cta i {
