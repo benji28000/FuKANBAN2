@@ -20,7 +20,7 @@ body {
 #logo_nav{
     margin-right: 15px;
 }
-.statut{
+.numberperstatut{
     color: white !important;
 }
 
@@ -99,12 +99,14 @@ body {
 
 
 .card__list {
-    display: grid;
+    display: flex;
+    flex-basis: fit-content;
+    flex-direction: column;
     grid-template-rows: auto;
     grid-gap: 0.5rem;
     margin: 0.5rem 0;
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 630px;
 
 
@@ -132,11 +134,12 @@ body {
     border-radius: 5px;
 }
 .card__item {
+    position: relative;
     background-color: white;
     border-radius: 0.25rem;
     box-shadow: 0 1px 0 rgba(9, 45, 66, 0.25);
     padding: 0.5rem;
-    position: relative;
+    height: fit-content;
 }
 
 .card__item:hover {
@@ -313,3 +316,7 @@ label {
     font-style: italic;
     color: #999;
 }
+
+
+
+

@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Tasks;
 use App\Form\TasksType;
 use App\Form\TasksTypeStatut;
+use App\Repository\StatutRepository;
 use App\Repository\TasksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -108,6 +110,20 @@ class TasksController extends AbstractController
 
 
         return $this->redirectToRoute('fukanban', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/update-task-status/{id}/{newstatut}", name: "update_task_status" , methods: ['GET', 'POST'])]
+    public function updateTaskStatus(Request $request, EntityManagerInterface $entityManager, ?String $newstatut, ?int $id, StatutRepository $statutRepository)
+    {
+        $statut = $statutRepository->findBy(["libelle" => $newstatut]);
+
+        $task = $entityManager->getRepository(Tasks::class)->find($id);
+        $task->setStatut($statut[0]);
+        $entityManager->flush();
+        $entityManager->persist($task);
+
+
+        return new JsonResponse(['message' => 'Task status updated successfully']);
     }
 
 

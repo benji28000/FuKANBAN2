@@ -2,43 +2,10 @@
 
 
 {% block javascripts %}
+    {{ parent() }}
 <script src="https://kit.fontawesome.com/d31ad0e262.js" crossorigin="anonymous"></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
 
-        const statusColors = {
-            "backlog": "#FFD700",
-            "running": "red",
-            "evaluating": "blue",
-            "in-progress": "orange",
-            "live": "green",
-        };
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const columns = document.querySelectorAll(".column__item");
-
-
-            columns.forEach(column => {
-                const statusLabel = column.classList[1];
-                const color = statusColors[statusLabel];
-                if (color) {
-                    column.style.backgroundColor = color;
-
-                }
-            });
-        });
-        document.addEventListener("DOMContentLoaded", function () {
-            const cardTags = document.querySelectorAll(".card__tag");
-
-            cardTags.forEach(tag => {
-                const statusLabel = tag.classList[1];
-                const color = statusColors[statusLabel];
-                if (color) {
-                    tag.style.backgroundColor = color;
-                }
-            });
-        });
-
-    </script>
 {% endblock %}
 
 
@@ -80,21 +47,21 @@
             <div class="column__item {{ statut.getLibelle() }}">
                 <div class="column__title--wrapper">
                     <h2 class="statut">{{ statut.getLibelle() }}</h2>
-                    <span class="statut">{{ numberOfTasksInStatut[statut.getId()] }}</span>
+                    <span class="numberperstatut" data-statut-number="{{ statut.getLibelle() }}" >{{ numberOfTasksInStatut[statut.getId()] }}</span>
                 </div>
                 <ul class="card__list">
 
                     {% for task in tasks %}
                         {% if task.getStatut().getLibelle() == statut.getLibelle()  %}
-                    <div class="card__item">
+                    <div class="card__item" draggable="true" data-statut="{{ statut.getLibelle() }}" data-task-id="{{ task.getId() }}">
 
                         <h5 class="card__title">{{ task.getTitle() }}</h5>
 
                         <div class="etiquettes">
                             {% for users in task.getUtilisateur() %}
-                                <span class="card__tag {{ statut.getLibelle() }}">{{ users.getName() }}</span>
+                                <span class="card__tag" data-statut="{{ statut.getLibelle() }}">{{ users.getName() }}</span>
                             {% endfor %}
-                            <span class="card__tag {{ statut.getLibelle() }}">{{ task.getProject().getName() }}</span>
+                            <span class="card__tag" data-statut="{{ statut.getLibelle() }}">{{ task.getProject().getName() }}</span>
                             {% if is_granted("TASK_DELETE",task) %}
                                 <a href="/tasks/{{ task.getId() }}/delete"  class="btn btn-main"><i class="fa-solid fa-xmark"></i></a>
                             {% endif %}
@@ -113,8 +80,10 @@
                             {% if is_granted("TASK_EDIT",task) %}
 
                                 <a href="/tasks/{{ task.getId() }}/edit"  class="btn btn-main"><i class="fa-solid fa-pen-to-square"></i></a>
+
                             {% endif %}
                         </div>
+
 
 
 
