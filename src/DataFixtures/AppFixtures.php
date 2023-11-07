@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 1; $i < 9; $i++) {
             $user = new Utilisateurs();
             $user->setName('user' . $i);
             $user->setMail('user' . $i . '@gmail.com');
@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
             $utilisateurs[] = $user;
             $manager->persist($user);
         }
-        for ($j = 0; $j < 4; $j++) {
+        for ($j = 1; $j < 5; $j++) {
             $project = new Projets();
             $project->setName('project' . $j);
             $project->setDescription('description' . $j);
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
         }
 
 
-        for ($k = 0; $k < 100; $k++) {
+        for ($k = 1; $k < 101; $k++) {
             $task = new Tasks();
             $task->setTitle('task' . $k);
             $task->setDescription('description' . $k);
