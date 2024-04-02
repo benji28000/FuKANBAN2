@@ -3,9 +3,12 @@
 {% block title %}New Tasks{% endblock %}
 
 {% block body %}
-    <h1>Create new Tasks</h1>
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    <div class="container">
+        <h1>Create new Tasks</h1>
 
-    {{ include('tasks/_form.html.twig') }}
+        {{ include('tasks/_form.html.twig') }}
 
-    <a href="{{ path('app_tasks_index') }}">back to list</a>
+        <a href="{{ path('app_tasks_index') }}">back to list</a>
+    </div>
 {% endblock %}
